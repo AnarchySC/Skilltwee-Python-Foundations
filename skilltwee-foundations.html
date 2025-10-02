@@ -1,0 +1,2158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Learning Companion - Foundation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #050505;
+            background-image: 
+                radial-gradient(ellipse at top left, rgba(52, 211, 153, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at bottom right, rgba(59, 130, 246, 0.15) 0%, transparent 50%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #e2e8f0;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .branding {
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .branding-title {
+            font-size: 0.75em;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .branding-links {
+            font-size: 0.9em;
+            color: #94a3b8;
+        }
+
+        .branding-links a {
+            color: #34d399;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .branding-links a:hover {
+            color: #10b981;
+        }
+
+        .branding-links .separator {
+            margin: 0 8px;
+            color: #475569;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.5em;
+            font-weight: 900;
+            background: linear-gradient(135deg, #34d399 0%, #3b82f6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+        }
+
+        .lesson-nav {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
+            margin-bottom: 30px;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 20px;
+            border-radius: 16px;
+        }
+
+        .lesson-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .lesson-btn:hover {
+            background: rgba(52, 211, 153, 0.1);
+            border-color: rgba(52, 211, 153, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .lesson-btn.active {
+            background: rgba(52, 211, 153, 0.15);
+            border-color: rgba(52, 211, 153, 0.5);
+        }
+
+        .lesson-btn.completed::after {
+            content: ' ✓';
+            color: #34d399;
+        }
+
+        .lesson-icon {
+            font-size: 1.8em;
+            margin-bottom: 8px;
+        }
+
+        .lesson-name {
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 30px;
+            border-radius: 16px;
+            margin-bottom: 25px;
+        }
+
+        .section-title {
+            font-size: 1.6em;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #34d399;
+        }
+
+        .concept {
+            background: rgba(59, 130, 246, 0.1);
+            border-left: 4px solid #3b82f6;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        .concept-title {
+            color: #3b82f6;
+            font-weight: 700;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+
+        .code-example {
+            background: #0a0a0a;
+            border: 1px solid rgba(52, 211, 153, 0.3);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            color: #34d399;
+            overflow-x: auto;
+        }
+
+        .code-example pre {
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        .code-comment {
+            color: #64748b;
+        }
+
+        .mini-quiz {
+            background: rgba(234, 179, 8, 0.1);
+            border: 2px solid rgba(234, 179, 8, 0.3);
+            padding: 25px;
+            margin: 25px 0;
+            border-radius: 12px;
+        }
+
+        .mini-quiz-title {
+            color: #fbbf24;
+            font-weight: 700;
+            font-size: 1.2em;
+            margin-bottom: 15px;
+        }
+
+        .quiz-prompt {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-size: 1.05em;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 120px;
+            background: #0a0a0a;
+            border: 1px solid rgba(234, 179, 8, 0.3);
+            border-radius: 8px;
+            padding: 15px;
+            color: #e2e8f0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95em;
+            resize: vertical;
+            margin: 10px 0;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #fbbf24;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            margin: 10px 10px 10px 0;
+            transition: all 0.3s ease;
+        }
+
+        .check-btn {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            color: #000;
+        }
+
+        .check-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(251, 191, 36, 0.3);
+        }
+
+        .run-btn {
+            background: linear-gradient(135deg, #34d399 0%, #10b981 100%);
+            color: #000;
+        }
+
+        .run-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(52, 211, 153, 0.3);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        .hint-btn {
+            background: rgba(139, 92, 246, 0.2);
+            border: 1px solid rgba(139, 92, 246, 0.4);
+            color: #c4b5fd;
+        }
+
+        .hint-btn:hover:not(:disabled) {
+            background: rgba(139, 92, 246, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .clear-btn {
+            background: rgba(239, 68, 68, 0.2);
+            border: 1px solid rgba(239, 68, 68, 0.4);
+            color: #fca5a5;
+        }
+
+        .clear-btn:hover {
+            background: rgba(239, 68, 68, 0.3);
+        }
+
+        .feedback {
+            display: none;
+            padding: 15px;
+            margin-top: 15px;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+
+        .feedback.show {
+            display: block;
+        }
+
+        .feedback.correct {
+            background: rgba(52, 211, 153, 0.15);
+            border: 2px solid rgba(52, 211, 153, 0.4);
+            color: #34d399;
+        }
+
+        .feedback.incorrect {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #f87171;
+        }
+
+        .hint-box {
+            display: none;
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            padding: 15px;
+            margin-top: 15px;
+            border-radius: 8px;
+            color: #c4b5fd;
+        }
+
+        .hint-box.show {
+            display: block;
+        }
+
+        .output-container {
+            background: #0a0a0a;
+            border: 1px solid rgba(52, 211, 153, 0.3);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            min-height: 60px;
+        }
+
+        .output-title {
+            color: #64748b;
+            font-size: 0.85em;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .output-content {
+            white-space: pre-wrap;
+            color: #e2e8f0;
+        }
+
+        .output-error {
+            color: #f87171;
+        }
+
+        .variable-display {
+            background: rgba(52, 211, 153, 0.05);
+            border: 1px solid rgba(52, 211, 153, 0.2);
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 6px;
+            font-size: 0.9em;
+        }
+
+        .variable-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0;
+            border-bottom: 1px solid rgba(52, 211, 153, 0.1);
+        }
+
+        .variable-item:last-child {
+            border-bottom: none;
+        }
+
+        .variable-name {
+            color: #34d399;
+            font-weight: 600;
+        }
+
+        .variable-value {
+            color: #cbd5e1;
+        }
+
+        .final-challenge {
+            background: rgba(168, 85, 247, 0.1);
+            border: 3px solid rgba(168, 85, 247, 0.4);
+            padding: 30px;
+            margin: 40px 0;
+            border-radius: 12px;
+        }
+
+        .final-challenge-title {
+            color: #a855f7;
+            font-weight: 700;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        p {
+            line-height: 1.8;
+            margin-bottom: 15px;
+            color: #cbd5e1;
+        }
+
+        ul, ol {
+            margin-left: 25px;
+            margin-bottom: 15px;
+        }
+
+        li {
+            margin-bottom: 8px;
+            line-height: 1.6;
+        }
+
+        strong {
+            color: #34d399;
+        }
+
+        code {
+            background: rgba(52, 211, 153, 0.1);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: #34d399;
+        }
+
+        .progress {
+            text-align: center;
+            color: #94a3b8;
+            font-size: 0.9em;
+            margin-bottom: 20px;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .nav-btn {
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            cursor: pointer;
+            color: #cbd5e1;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .nav-btn:hover:not(:disabled) {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .loading-notice {
+            text-align: center;
+            padding: 10px;
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 8px;
+            margin-bottom: 20px;
+            color: #3b82f6;
+        }
+
+        textarea.project {
+            min-height: 250px;
+        }
+
+        .completion-animation {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            background: rgba(0, 0, 0, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            border: 2px solid #34d399;
+            z-index: 10000;
+            text-align: center;
+            animation: celebrationPop 0.6s ease forwards;
+        }
+
+        @keyframes celebrationPop {
+            0% { transform: translate(-50%, -50%) scale(0) rotate(-10deg); }
+            50% { transform: translate(-50%, -50%) scale(1.1) rotate(5deg); }
+            100% { transform: translate(-50%, -50%) scale(1) rotate(0deg); }
+        }
+
+        .completion-emoji {
+            font-size: 4em;
+            margin-bottom: 20px;
+        }
+
+        .completion-text {
+            font-size: 1.5em;
+            font-weight: 700;
+            color: #34d399;
+            margin-bottom: 10px;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #64748b;
+            font-size: 0.85em;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .footer a {
+            color: #34d399;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            color: #10b981;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="branding">
+            <div class="branding-title">Powered By</div>
+            <div class="branding-links">
+                Developed by <a href="https://anarchygames.net" target="_blank">Anarchy</a> 
+                <span class="separator">|</span> 
+                In Association with <a href="https://scrivener.pro" target="_blank">Scrivener.pro</a>
+                <span class="separator">|</span>
+                <a href="mailto:admin@scrivener.pro">Report Bugs</a>
+            </div>
+        </div>
+
+        <h1>🐍 Python Foundation - Interactive Lessons</h1>
+        
+        <div id="loadingNotice" class="loading-notice">
+            ⏳ Loading Python interpreter...
+        </div>
+        
+        <div class="lesson-nav" id="lessonNav"></div>
+        
+        <div id="lessonContainer"></div>
+
+        <div class="footer">
+            Built with ❤️ by <a href="https://anarchygames.net" target="_blank">Anarchy Games</a> 
+            in partnership with <a href="https://scrivener.pro" target="_blank">Scrivener.pro</a>
+            <br>
+            Found a bug? Email <a href="mailto:admin@scrivener.pro">admin@scrivener.pro</a>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/skulpt@1.2.0/dist/skulpt.min.js"></script>
+    <script src="https://unpkg.com/skulpt@1.2.0/dist/skulpt-stdlib.js"></script>
+    
+    <script>
+        let pythonReady = false;
+        let isExecuting = false;
+        let currentExecutionId = null;
+
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                if (typeof Sk !== 'undefined') {
+                    pythonReady = true;
+                    document.getElementById('loadingNotice').style.display = 'none';
+                } else {
+                    document.getElementById('loadingNotice').innerHTML = 
+                        '⚠️ Python interpreter failed to load. Code validation will still work!';
+                }
+            }, 1000);
+        });
+
+        // FIXED: Better extractVariables with try-catch
+        function extractVariables(code) {
+            const variables = {};
+            const lines = code.split(/\r?\n/); // FIXED: Handle Windows line endings
+            
+            lines.forEach(line => {
+                line = line.trim();
+                if (!line || line.startsWith('#')) return;
+                
+                const match = line.match(/^(\w+)\s*=\s*(.+)/);
+                if (match) {
+                    const varName = match[1];
+                    let value = match[2].trim().split('#')[0].trim();
+                    
+                    try {
+                        if ((value.startsWith('"') && value.endsWith('"')) || 
+                            (value.startsWith("'") && value.endsWith("'"))) {
+                            variables[varName] = value.slice(1, -1);
+                        } else if (!isNaN(value) && value !== '') {
+                            variables[varName] = value;
+                        } else {
+                            // FIXED: Wrap eval in try-catch to prevent crashes
+                            try {
+                                let evalValue = value;
+                                Object.keys(variables).forEach(v => {
+                                    evalValue = evalValue.replace(new RegExp(`\\b${v}\\b`, 'g'), variables[v]);
+                                });
+                                variables[varName] = eval(evalValue);
+                            } catch (evalError) {
+                                // Can't evaluate, just store as string
+                                variables[varName] = value;
+                            }
+                        }
+                    } catch (e) {
+                        variables[varName] = value;
+                    }
+                }
+            });
+            
+            return variables;
+        }
+
+        // FIXED: Better Skulpt variable extraction
+        function extractSkulptVariables(mod) {
+            const variables = {};
+            if (!mod || !mod.$d) return variables;
+
+            for (let key in mod.$d) {
+                if (key.startsWith('__')) continue;
+                
+                const val = mod.$d[key];
+                if (val === undefined || val === null) continue;
+
+                try {
+                    // FIXED: Handle more Python types
+                    if (val instanceof Sk.builtin.str) {
+                        variables[key] = val.v;
+                    } else if (val instanceof Sk.builtin.int_ || val instanceof Sk.builtin.float_) {
+                        variables[key] = Sk.ffi.remapToJs(val);
+                    } else if (val instanceof Sk.builtin.bool) {
+                        variables[key] = Sk.ffi.remapToJs(val) ? 'True' : 'False';
+                    } else if (val instanceof Sk.builtin.list) {
+                        const arr = Sk.ffi.remapToJs(val);
+                        variables[key] = '[' + arr.join(', ') + ']';
+                    } else if (val instanceof Sk.builtin.dict) {
+                        variables[key] = '{...}'; // Simplified for display
+                    } else if (val instanceof Sk.builtin.tuple) {
+                        const arr = Sk.ffi.remapToJs(val);
+                        variables[key] = '(' + arr.join(', ') + ')';
+                    } else if (val.v !== undefined) {
+                        variables[key] = val.v;
+                    }
+                } catch (e) {
+                    // If we can't extract it, skip it
+                    continue;
+                }
+            }
+            
+            return variables;
+        }
+
+        // FIXED: Add execution timeout and better error handling
+        function runPythonCode(code) {
+            return new Promise((resolve) => {
+                const executionId = Date.now();
+                currentExecutionId = executionId;
+
+                if (!pythonReady) {
+                    const variables = extractVariables(code);
+                    resolve({ success: true, output: '', variables: variables, fallback: true });
+                    return;
+                }
+
+                let output = '';
+                let executionTimeout = null;
+                
+                try {
+                    Sk.configure({
+                        output: function(text) { output += text; },
+                        read: function(x) {
+                            if (Sk.builtinFiles === undefined || Sk.builtinFiles["files"][x] === undefined)
+                                throw "File not found: '" + x + "'";
+                            return Sk.builtinFiles["files"][x];
+                        },
+                        __future__: Sk.python3,
+                        execLimit: 5000 // FIXED: 5 second timeout for infinite loops
+                    });
+
+                    // FIXED: Set timeout
+                    executionTimeout = setTimeout(() => {
+                        if (currentExecutionId === executionId) {
+                            resolve({ 
+                                success: false, 
+                                error: '⏱️ Execution timeout! Your code took too long (possible infinite loop?)' 
+                            });
+                        }
+                    }, 6000);
+
+                    Sk.misceval.asyncToPromise(function() {
+                        return Sk.importMainWithBody("<stdin>", false, code, true);
+                    }).then(
+                        function(mod) {
+                            clearTimeout(executionTimeout);
+                            if (currentExecutionId !== executionId) return;
+
+                            const variables = extractSkulptVariables(mod);
+                            resolve({ success: true, output: output, variables: variables });
+                        },
+                        function(err) {
+                            clearTimeout(executionTimeout);
+                            if (currentExecutionId !== executionId) return;
+
+                            // FIXED: Friendlier error messages
+                            let errorMsg = err.toString();
+                            if (errorMsg.includes('IndentationError')) {
+                                errorMsg = '❌ Indentation Error: Check your spacing! Python needs consistent indentation.';
+                            } else if (errorMsg.includes('SyntaxError')) {
+                                errorMsg = '❌ Syntax Error: Check your code for typos, missing colons, or mismatched quotes.';
+                            } else if (errorMsg.includes('NameError')) {
+                                errorMsg = '❌ Name Error: You\'re using a variable that doesn\'t exist yet.';
+                            } else if (errorMsg.includes('TypeError')) {
+                                errorMsg = '❌ Type Error: You\'re mixing incompatible types (like adding text to a number).';
+                            }
+                            
+                            resolve({ success: false, error: errorMsg });
+                        }
+                    );
+                } catch (err) {
+                    clearTimeout(executionTimeout);
+                    resolve({ success: false, error: '❌ Error: ' + err.toString() });
+                }
+            });
+        }
+
+        // FIXED: Improved validation
+        function validateCode(code, requirements) {
+            if (!requirements || requirements.length === 0) return { passed: true, errors: [] };
+            
+            const lines = code.split(/\r?\n/).map(l => l.trim()).filter(l => l && !l.startsWith('#')); // FIXED: Line endings
+            
+            const checks = {
+                hasVariable: (varName) => lines.some(line => {
+                    const match = line.match(/^(\w+)\s*=/);
+                    return match && match[1] === varName;
+                }),
+                hasValue: (varName, value) => {
+                    const pattern = new RegExp(`${varName}\\s*=\\s*(.+)`);
+                    return lines.some(line => {
+                        const match = line.match(pattern);
+                        if (!match) return false;
+                        const assignedValue = match[1].replace(/["']/g, '').trim().split('#')[0].trim();
+                        const checkValue = String(value).replace(/["']/g, '').trim();
+                        // FIXED: Exact match instead of .includes()
+                        return assignedValue === checkValue;
+                    });
+                },
+                hasPrint: () => lines.some(line => line.includes('print')),
+                hasOperation: (varName, operator) => {
+                    // FIXED: Check they're on same line
+                    return lines.some(line => 
+                        line.includes(varName) && line.includes(operator) && line.includes('=')
+                    );
+                },
+                hasFString: () => code.includes('f"') || code.includes("f'"),
+                hasStringMethod: (method) => {
+                    // FIXED: Check for method with parentheses
+                    return code.includes(`.${method}(`);
+                },
+                hasComparison: (operators) => operators.some(op => code.includes(op)),
+                hasIf: () => lines.some(line => line.startsWith('if ')),
+                hasElif: () => lines.some(line => line.startsWith('elif ')),
+                hasElse: () => lines.some(line => line.startsWith('else')),
+                hasFor: () => lines.some(line => line.startsWith('for ')),
+                hasRange: () => code.includes('range('),
+                hasDef: () => lines.some(line => line.startsWith('def '))
+            };
+
+            let errors = [];
+            let passed = true;
+
+            requirements.forEach(req => {
+                let checkPassed = false;
+                
+                switch(req.type) {
+                    case 'variable':
+                        checkPassed = checks.hasVariable(req.name);
+                        if (!checkPassed) errors.push(`❌ Missing variable: <code>${req.name}</code>`);
+                        break;
+                    case 'value':
+                        checkPassed = checks.hasValue(req.name, req.value);
+                        if (!checkPassed) errors.push(`❌ Variable <code>${req.name}</code> should equal <code>${req.value}</code>`);
+                        break;
+                    case 'print':
+                        checkPassed = checks.hasPrint();
+                        if (!checkPassed) errors.push(`❌ Don't forget to use print()`);
+                        break;
+                    case 'operation':
+                        checkPassed = checks.hasOperation(req.name, req.operator);
+                        if (!checkPassed) errors.push(`❌ Should use <code>${req.operator}</code> with <code>${req.name}</code>`);
+                        break;
+                    case 'fstring':
+                        checkPassed = checks.hasFString();
+                        if (!checkPassed) errors.push(`❌ Should use an f-string (f"...")`);
+                        break;
+                    case 'method':
+                        checkPassed = checks.hasStringMethod(req.method);
+                        if (!checkPassed) errors.push(`❌ Should use <code>.${req.method}()</code> method`);
+                        break;
+                    case 'comparison':
+                        checkPassed = checks.hasComparison(req.operators);
+                        if (!checkPassed) errors.push(`❌ Should use comparison: ${req.operators.join(' or ')}`);
+                        break;
+                    case 'if':
+                        checkPassed = checks.hasIf();
+                        if (!checkPassed) errors.push(`❌ Should use an if statement`);
+                        break;
+                    case 'elif':
+                        checkPassed = checks.hasElif();
+                        if (!checkPassed) errors.push(`❌ Should use elif`);
+                        break;
+                    case 'else':
+                        checkPassed = checks.hasElse();
+                        if (!checkPassed) errors.push(`❌ Should use else`);
+                        break;
+                    case 'for':
+                        checkPassed = checks.hasFor();
+                        if (!checkPassed) errors.push(`❌ Should use a for loop`);
+                        break;
+                    case 'range':
+                        checkPassed = checks.hasRange();
+                        if (!checkPassed) errors.push(`❌ Should use range()`);
+                        break;
+                    case 'def':
+                        checkPassed = checks.hasDef();
+                        if (!checkPassed) errors.push(`❌ Should define a function with def`);
+                        break;
+                }
+                
+                if (!checkPassed) passed = false;
+            });
+
+            return { passed, errors };
+        }
+
+        const lessons = {
+            variables: {
+                icon: '📦',
+                name: 'Variables',
+                totalSteps: 7,
+                steps: {
+                    0: {
+                        type: 'lesson',
+                        title: "What's a Variable?",
+                        content: `
+                            <div class="concept">
+                                <div class="concept-title">🎮 The Problem</div>
+                                <p>You're making a game. Your character has 100 health. An enemy hits them for 25 damage.</p>
+                                <p><strong>How does your game remember the character now has 75 health?</strong></p>
+                                <p>Answer: <strong>Variables</strong>. They're labeled boxes that store information your game needs to remember.</p>
+                            </div>
+
+                            <p>Here's how you create a variable:</p>
+                            <div class="code-example"><pre>health = 100</pre></div>
+                            
+                            <p>That's it! You just:</p>
+                            <ul>
+                                <li>Picked a name: <code>health</code></li>
+                                <li>Used an equals sign: <code>=</code></li>
+                                <li>Put a value in it: <code>100</code></li>
+                            </ul>
+                        `,
+                        requirements: [
+                            { type: 'variable', name: 'coins' },
+                            { type: 'value', name: 'coins', value: '50' }
+                        ],
+                        prompt: "Create a variable called <code>coins</code> and set it to <code>50</code>",
+                        hints: [
+                            "💡 Variables use the = sign to assign values",
+                            "💡 Hint: coins = 50",
+                            "💡 Full answer: coins = 50"
+                        ]
+                    },
+                    1: {
+                        type: 'lesson',
+                        title: "Naming Rules",
+                        content: `
+                            <div class="concept">
+                                <div class="concept-title">⚠️ CRITICAL: Variable names have rules!</div>
+                                <p>You can't just name variables anything. Here are the rules:</p>
+                                <ul>
+                                    <li>✅ Use letters, numbers, and underscores: <code>player_health</code></li>
+                                    <li>❌ NO SPACES! Use <code>player_health</code> NOT <code>player health</code></li>
+                                    <li>❌ NO DASHES! Use <code>player_health</code> NOT <code>player-health</code></li>
+                                    <li>❌ Can't start with a number: NOT <code>2player</code></li>
+                                </ul>
+                            </div>
+
+                            <div class="code-example"><pre><span class="code-comment"># GOOD names:</span>
+health = 100
+player_name = "Hero"
+enemy_2_health = 50
+
+<span class="code-comment"># BAD names (cause ERRORS):</span>
+player health = 100   <span class="code-comment"># ❌ Has space!</span>
+player-health = 100   <span class="code-comment"># ❌ Has dash!</span></pre></div>
+                        `,
+                        requirements: [
+                            { type: 'variable', name: 'player_speed' },
+                            { type: 'value', name: 'player_speed', value: '5' }
+                        ],
+                        prompt: "Create a variable for player's speed. Call it <code>player_speed</code> and set it to <code>5</code>",
+                        hints: [
+                            "💡 Use underscores _ instead of spaces",
+                            "💡 Hint: player_speed = 5",
+                            "💡 Full answer: player_speed = 5"
+                        ]
+                    },
+                    2: {
+                        type: 'lesson',
+                        title: "Numbers vs Text",
+                        content: `
+                            <div class="concept">
+                                <div class="concept-title">📦 Two Different Types</div>
+                                <p><strong>Numbers</strong> - Write plain, no quotes:</p>
+                                <div class="code-example"><pre>health = 100
+coins = 25</pre></div>
+                                
+                                <p><strong>Text</strong> - Must use "quotes":</p>
+                                <div class="code-example"><pre>player_name = "DragonSlayer"
+weapon = "Sword"</pre></div>
+                                
+                                <p><strong>Why it matters:</strong> You can do math with numbers, NOT with text!</p>
+                            </div>
+                        `,
+                        requirements: [
+                            { type: 'variable', name: 'score' },
+                            { type: 'value', name: 'score', value: '100' },
+                            { type: 'variable', name: 'player_name' }
+                        ],
+                        prompt: "Line 1: Create <code>score</code> with number <code>100</code> (no quotes!)<br>Line 2: Create <code>player_name</code> with text <code>\"Warrior\"</code> (with quotes!)",
+                        hints: [
+                            "💡 Numbers don't need quotes, text does",
+                            "💡 Hint: score = 100 and player_name = \"Warrior\"",
+                            "💡 Full answer:<br>score = 100<br>player_name = \"Warrior\""
+                        ]
+                    },
+                    3: {
+                        type: 'lesson',
+                        title: "Changing Variables with Math",
+                        content: `
+                            <div class="concept">
+                                <div class="concept-title">🔢 How Games Update Everything</div>
+                                <div class="code-example"><pre>health = 100
+health = health - 25  <span class="code-comment"># Now health is 75</span></pre></div>
+                                
+                                <p><strong>Read this RIGHT TO LEFT:</strong></p>
+                                <ol>
+                                    <li>Look at current value of health (100)</li>
+                                    <li>Subtract 25 from it (100 - 25 = 75)</li>
+                                    <li>Store result back into health</li>
+                                </ol>
+                            </div>
+                        `,
+                        requirements: [
+                            { type: 'variable', name: 'mana' },
+                            { type: 'value', name: 'mana', value: '50' },
+                            { type: 'operation', name: 'mana', operator: '-' }
+                        ],
+                        prompt: "Line 1: Create <code>mana</code> set to <code>50</code><br>Line 2: Subtract <code>15</code> from mana",
+                        hints: [
+                            "💡 First create mana, then update it",
+                            "💡 Hint: mana = mana - 15",
+                            "💡 Full answer:<br>mana = 50<br>mana = mana - 15"
+                        ]
+                    },
+                    4: {
+                        type: 'lesson',
+                        title: "Showing Information with print()",
+                        content: `
+                            <div class="concept">
+                                <div class="concept-title">🖨️ How to Display Things</div>
+                                <div class="code-example"><pre>health = 75
+print(health)        <span class="code-comment"># Shows: 75</span>
+
+name = "Hero"
+print(name, "has", health, "health")
+<span class="code-comment"># Shows: Hero has 75 health</span></pre></div>
+
+                                <p><strong>CRITICAL:</strong> Always use parentheses!</p>
+                            </div>
+                        `,
+                        requirements: [
+                            { type: 'variable', name: 'score' },
+                            { type: 'value', name: 'score', value: '500' },
+                            { type: 'print' }
+                        ],
+                        prompt: "Line 1: Create <code>score</code> set to <code>500</code><br>Line 2: Print it using <code>print(score)</code>",
+                        hints: [
+                            "💡 print() needs parentheses",
+                            "💡 Hint: print(score)",
+                            "💡 Full answer:<br>score = 500<br>print(score)"
+                        ]
+                    },
+                    5: {
+                        type: 'project',
+                        title: "Build a Battle System",
+                        description: "Create a simple battle between your hero and a goblin!",
+                        content: `
+                            <div class="final-challenge">
+                                <div class="final-challenge-title">🎮 Build a Battle System</div>
+                                <p><strong>Create a simple battle between your hero and a goblin!</strong></p>
+                                
+                                <div class="concept">
+                                    <div class="concept-title">📋 Instructions:</div>
+                                    <ol>
+                                        <li>Create hero: <code>hero_name</code>, <code>hero_health = 100</code>, <code>hero_attack = 25</code></li>
+                                        <li>Create goblin: <code>goblin_health = 50</code>, <code>goblin_attack = 15</code></li>
+                                        <li>Print "BATTLE START!"</li>
+                                        <li>Print hero and goblin stats</li>
+                                        <li>Hero attacks: subtract <code>hero_attack</code> from <code>goblin_health</code></li>
+                                        <li>Print attack result</li>
+                                        <li>Goblin attacks: subtract <code>goblin_attack</code> from <code>hero_health</code></li>
+                                        <li>Print attack result</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        `,
+                        requirements: [],
+                        prompt: "Build your battle system following the instructions above!"
+                    },
+                    6: {
+                        type: 'creative',
+                        title: "Make Your Own Game!",
+                        content: `
+                            <div class="final-challenge">
+                                <div class="final-challenge-title">🚀 Make Your Own Game!</div>
+                                <p><strong>Using everything you learned, build a simple game of your own!</strong></p>
+                                
+                                <div class="concept">
+                                    <div class="concept-title">💡 Game Ideas:</div>
+                                    <ul>
+                                        <li>🪙 Shop System - Player has coins, buy/sell items</li>
+                                        <li>⚔️ Different Battle - Fight a dragon or wizard</li>
+                                        <li>🎒 Inventory Manager - Collect and track items</li>
+                                        <li>💰 Treasure Hunt - Find treasure, add to gold</li>
+                                        <li>🌟 Level Up System - Gain XP, level up, stats increase</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="concept">
+                                    <div class="concept-title">📚 Skills You Can Use:</div>
+                                    <ul>
+                                        <li>✅ Create variables with good names (use underscores!)</li>
+                                        <li>✅ Store numbers (no quotes) - health, coins, scores</li>
+                                        <li>✅ Store text (with quotes) - names, messages</li>
+                                        <li>✅ Do math - add, subtract, multiply, divide</li>
+                                        <li>✅ Update variables - health = health - 10</li>
+                                        <li>✅ Print messages - show what's happening</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="concept" style="background: rgba(52, 211, 153, 0.1); border-left-color: #34d399;">
+                                    <div class="concept-title" style="color: #34d399;">💪 Challenge Yourself:</div>
+                                    <ul>
+                                        <li>At least 5 variables</li>
+                                        <li>At least 3 math operations</li>
+                                        <li>At least 5 print statements</li>
+                                    </ul>
+                                </div>
+                                
+                                <p style="margin-top: 20px;"><strong>No check button - just create and have fun!</strong></p>
+                                <p>Run your code to see it work!</p>
+                            </div>
+                        `,
+                        requirements: [],
+                        prompt: "Build your own game here! Be creative!"
+                    }
+                }
+            },
+
+            operators: {
+                icon: '➕',
+                name: 'Operators',
+                totalSteps: 5,
+                steps: {
+                    0: {
+                        type: 'lesson',
+                        title: "What Are Operators?",
+                        content: `
+                            <div class="concept">
+                                <div class="concept-title">🎮 Why Games Need Math</div>
+                                <p>Every game constantly needs to:</p>
+                                <ul>
+                                    <li>➕ Add health, collect coins, increase score</li>
+                                    <li>➖ Take damage, spend money, lose lives</li>
+                                    <li>✖️ Double damage, combo multipliers</li>
+                                    <li>➗ Split rewards, calculate averages</li>
+                                </ul>
+                                <p><strong>Operators are the symbols that let you DO stuff with numbers!</strong></p>
+                            </div>
+
+                            <div class="code-example"><pre>health = 100
+health = health - 25  <span class="code-comment"># Subtract</span>
+health = health + 10  <span class="code-comment"># Add</span>
+damage = 20 * 2       <span class="code-comment"># Multiply</span>
+share = 100 / 4       <span class="code-comment"># Divide</span></pre></div>
+                        `,
+                        requirements: [
+                            { type: 'variable', name: 'coins' },
+                            { type: 'value', name: 'coins', value: '50' },
+                            { type: 'operation', name: 'coins', operator: '+' }
+                        ],
+                        prompt: "Create <code>coins = 50</code>, then add <code>25</code> to it",
+                        hints: [
+                            "💡 Use + to add to coins",
+                            "💡 Hint: coins = coins + 25",
+                            "💡 Full answer:<br>coins = 50<br>coins = coins + 25"
+                        ]
+                    },
+                    1: {
+                        type: 'lesson',
+                        title: "Comparison Operators",
+                        content: `
+                            <div class="concept">
+                                <div class="concept-title">🔍 Asking Questions</div>
+                                <p>Games need to check things:</p>
+                                <ul>
+                                    <li><code>==</code> - Is equal to?</li>
+                                    <li><code>!=</code> - Is NOT equal to?</li>
+                                    <li><code>&gt;</code> - Is greater than?</li>
+                                    <li><code>&lt;</code> - Is less than?</li>
+                                    <li><code>&gt;=</code> - Is greater or equal?</li>
+                                    <li><code>&lt;=</code> - Is less or equal?</li>
+                                </ul>
+                            </div>
+
+                            <div class="code-example"><pre>health = 25
+is_low = health &lt; 30  <span class="code-comment"># True!</span>
+
+coins = 50
+can_buy = coins &gt;= 75  <span class="code-comment"># False</span></pre></div>
+                        `,
+                        requirements: [
+                            { type: 'variable', name: 'level' },
+                            { type: 'value', name: 'level', value: '5' },
+                            { type: 'variable', name: 'is_max' },
+                            { type: 'comparison', operators: ['>=', '<=', '>', '<', '=='] }
+                        ],
+                        prompt: "Create <code>level = 5</code>, then check if level is greater than or equal to 10. Store in <code>is_max</code>",
+                        hints: [
+                            "💡 Use >= to check if greater or equal",
+                            "💡 Hint: is_max = level >= 10",
+                            "💡 Full answer:<br>level = 5<br>is_max = level >= 10"
+                        ]
+                    },
+                    2: {
+                        type: 'lesson',
+                        title: "The Modulo Operator %",
+                        content: `
+                            <div class="concept">
+                                <div class="concept-title">🎯 Finding Remainders</div>
+                                <p>The <code>%</code> operator gives you the REMAINDER after division.</p>
+                                <div class="code-example"><pre>10 % 3  <span class="code-comment"># = 1 (10 ÷ 3 = 3 remainder 1)</span>
+10 % 2  <span class="code-comment"># = 0 (10 ÷ 2 = 5 remainder 0)</span></pre></div>
+                                
+                                <p><strong>Why this is useful:</strong> Check if numbers are even or odd!</p>
+                                <div class="code-example"><pre>number = 8
+is_even = number % 2 == 0  <span class="code-comment"># True!</span></pre></div>
+                            </div>
+                        `,
+                        requirements: [
+                            { type: 'variable', name: 'enemy_count' },
+                            { type: 'value', name: 'enemy_count', value: '7' },
+                            { type: 'variable', name: 'is_odd' },
+                            { type: 'operation', name: 'enemy_count', operator: '%' }
+                        ],
+                        prompt: "Create <code>enemy_count = 7</code>. Check if it's odd (remainder 1 when divided by 2). Store in <code>is_odd</code>",
+                        hints: [
+                            "💡 Use % to get remainder",
+                            "💡 Hint: is_odd = enemy_count % 2 == 1",
+                            "💡 Full answer:<br>enemy_count = 7<br>is_odd = enemy_count % 2 == 1"
+                        ]
+                    },
+                    3: {
+                        type: 'project',
+                        title: "Build a Shop System",
+                        content: `
+                            <div class="final-challenge">
+                                <div class="final-challenge-title">🪙 Build a Shop System</div>
+                                <p><strong>Create a game shop where players can buy items!</strong></p>
+                                
+                                <div class="concept">
+                                    <div class="concept-title">📋 Instructions:</div>
+                                    <ol>
+                                        <li>Player starts with <code>coins = 100</code></li>
+                                        <li>Health potion costs <code>25</code> coins</li>
+                                        <li>Sword costs <code>75</code> coins</li>
+                                        <li>Player buys 2 health potions - subtract cost</li>
+                                        <li>Check if player can afford sword (<code>coins >= 75</code>)</li>
+                                        <li>Print remaining coins and whether they can buy sword</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        `,
+                        requirements: [],
+                        prompt: "Build your shop system!"
+                    },
+                    4: {
+                        type: 'creative',
+                        title: "Build Your Own Math Game!",
+                        content: `
+                            <div class="final-challenge">
+                                <div class="final-challenge-title">🚀 Build Your Own Math Game!</div>
+                                <p><strong>Create any game that uses math and comparisons!</strong></p>
+                                
+                                <div class="concept">
+                                    <div class="concept-title">💡 Game Ideas:</div>
+                                    <ul>
+                                        <li>🎲 Dice Battle - Roll dice, compare scores</li>
+                                        <li>💰 Bank System - Deposit, withdraw, check balance</li>
+                                        <li>🏃 Race Game - Track positions, calculate distances</li>
+                                        <li>🎯 Score System - Add points, check high scores</li>
+                                        <li>⚔️ Damage Calculator - Calculate crits, armor reduction</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        `,
+                        requirements: [],
+                        prompt: "Build your math game here!"
+                    }
+                }
+            },
+
+            strings: {
+                icon: '📝',
+                name: 'Strings',
+                totalSteps: 5,
+                steps: {
+                    0: {
+                        type: 'lesson',
+                        title: "What Are Strings?",
+                        content: `
+                            <div class="concept">
+                                <div class="concept-title">💬 Text in Games</div>
+                                <p>Every game shows text to players:</p>
+                                <ul>
+                                    <li>💬 Dialogue: "Welcome, Hero!"</li>
+                                    <li>📊 Stats: "Health: 85/100"</li>
+                                    <li>🏆 Messages: "YOU WIN!"</li>
+                                </ul>
+                                <p><strong>Strings</strong> are how you work with ALL text!</p>
+                            </div>
+
+                            <div class="code-example"><pre><span class="code-comment"># Create strings with quotes:</span>
+player_name = "DragonSlayer"
+message = "Welcome to the game!"
+
+<span class="code-comment"># Combine strings with +:</span>
+greeting = "Hello, " + player_name
+print(greeting)  <span class="code-comment"># Hello, DragonSlayer</span></pre></div>
+                        `,
+                        requirements: [
+                            { type: 'variable', name: 'hero_name' },
+                            { type: 'variable', name: 'greeting' },
+                            { type: 'operation', name: 'greeting', operator: '+' },
+                            { type: 'print' }
+                        ],
+                        prompt: "Create <code>hero_name = \"Knight\"</code> and <code>greeting = \"Welcome, \" + hero_name</code>. Print greeting.",
+                        hints: [
+                            "💡 Use + to combine strings",
+                            "💡 Don't forget to print",
+                            "💡 Full answer:<br>hero_name = \"Knight\"<br>greeting = \"Welcome, \" + hero_name<br>print(greeting)"
+                        ]
+                    },
+                    1: {
+                        type: 'lesson',
+                        title: "F-Strings (Better Way!)",
+                        content: `
+                            <div class="concept">
+                                <div class="concept-title">🎯 Easier Way to Combine</div>
+                                <p>Instead of using +, use <strong>f-strings</strong>:</p>
+                                <div class="code-example"><pre>name = "Hero"
+health = 85
+
+<span class="code-comment"># Old way (messy):</span>
+status = name + " has " + str(health) + " health"
+
+<span class="code-comment"># New way (clean!):</span>
+status = f"{name} has {health} health"
+print(status)  <span class="code-comment"># Hero has 85 health</span></pre></div>
+                                
+                                <p><strong>Put variables inside {}</strong> and Python fills them in!</p>
+                            </div>
+                        `,
+                        requirements: [
+                            { type: 'variable', name: 'player' },
+                            { type: 'variable', name: 'mana' },
+                            { type: 'fstring' },
+                            { type: 'print' }
+                        ],
+                        prompt: "Create <code>player = \"Mage\"</code> and <code>mana = 50</code>. Use an f-string to print: \"Mage has 50 mana\"",
+                        hints: [
+                            "💡 Start with f before the quote",
+                            "💡 Put variables in {curly braces}",
+                            "💡 Full answer:<br>player = \"Mage\"<br>mana = 50<br>print(f\"{player} has {mana} mana\")"
+                        ]
+                    },
+                    2: {
+                        type: 'lesson',
+                        title: "String Methods",
+                        content: `
+                            <div class="concept">
+                                <div class="concept-title">🔧 Useful String Tools</div>
+                                <div class="code-example"><pre>username = "  xXxGamerxXx  "
+
+<span class="code-comment"># Clean up spaces:</span>
+username = username.strip()
+
+<span class="code-comment"># Make UPPERCASE:</span>
+shout = "you win!"
+shout = shout.upper()  <span class="code-comment"># YOU WIN!</span>
+
+<span class="code-comment"># Make lowercase:</span>
+input_text = "YES"
+input_text = input_text.lower()  <span class="code-comment"># yes</span></pre></div>
+                            </div>
+                        `,
+                        requirements: [
+                            { type: 'variable', name: 'message' },
+                            { type: 'method', method: 'lower' },
+                            { type: 'print' }
+                        ],
+                        prompt: "Create <code>message = \"LEVEL UP!\"</code>. Convert it to lowercase and print it.",
+                        hints: [
+                            "💡 Use .lower() method",
+                            "💡 Remember parentheses: .lower()",
+                            "💡 Full answer:<br>message = \"LEVEL UP!\"<br>message = message.lower()<br>print(message)"
+                        ]
+                    },
+                    3: {
+                        type: 'project',
+                        title: "Build an NPC Dialogue System",
+                        content: `
+                            <div class="final-challenge">
+                                <div class="final-challenge-title">💬 Build an NPC Dialogue System</div>
+                                <p><strong>Create a conversation with a game character!</strong></p>
+                                
+                                <div class="concept">
+                                    <div class="concept-title">📋 Instructions:</div>
+                                    <ol>
+                                        <li>Create variables: <code>npc_name = "Wizard"</code>, <code>player_name = "Hero"</code>, <code>quest_item = "Crystal"</code></li>
+                                        <li>Use f-string for greeting: "Greetings, Hero! I am Wizard."</li>
+                                        <li>Create quest message: "I need you to find the Crystal."</li>
+                                        <li>Make quest message UPPERCASE for drama</li>
+                                        <li>Print both messages</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        `,
+                        requirements: [],
+                        prompt: "Build your NPC dialogue system!"
+                    },
+                    4: {
+                        type: 'creative',
+                        title: "Build Your Text Game!",
+                        content: `
+                            <div class="final-challenge">
+                                <div class="final-challenge-title">🚀 Build Your Text Game!</div>
+                                <p><strong>Create any game that uses text!</strong></p>
+                                
+                                <div class="concept">
+                                    <div class="concept-title">💡 Game Ideas:</div>
+                                    <ul>
+                                        <li>💬 Story Narrator - Tell an adventure with character names</li>
+                                        <li>🎭 Character Creator - Combine name, class, weapon into description</li>
+                                        <li>📜 Quest Logger - Format and display quest information</li>
+                                        <li>🏆 Achievement System - Announce achievements in style</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        `,
+                        requirements: [],
+                        prompt: "Build your text game here!"
+                    }
+                }
+            },
+
+            conditionals: {
+                icon: '🔀',
+                name: 'Conditionals',
+                totalSteps: 5,
+                steps: {
+                    0: {
+                        type: 'lesson',
+                        title: "Making Decisions with if",
+                        content: `
+                            <div class="concept">
+                                <div class="concept-title">🎮 Games Are All Choices</div>
+                                <p>Every game action is a decision:</p>
+                                <ul>
+                                    <li>IF player presses jump → make character jump</li>
+                                    <li>IF health reaches 0 → game over</li>
+                                    <li>IF player has key → unlock door</li>
+                                </ul>
+                                <p><strong>Without if statements, your game does the same thing every time!</strong></p>
+                            </div>
+
+                            <div class="code-example"><pre>health = 15
+
+if health &lt; 30:
+    print("WARNING: Low health!")
+    
+if health &lt;= 0:
+    print("GAME OVER")</pre></div>
+
+                            <p><strong>CRITICAL:</strong> The indented code only runs if the condition is True!</p>
+                        `,
+                        requirements: [
+                            { type: 'variable', name: 'coins' },
+                            { type: 'if' },
+                            { type: 'comparison', operators: ['>='] },
+                            { type: 'print' }
+                        ],
+                        prompt: "Create <code>coins = 75</code>. IF coins are greater than or equal to 50, print \"You're rich!\"",
+                        hints: [
+                            "💡 Use if followed by condition and colon",
+                            "💡 Indent the print statement",
+                            "💡 Full answer:<br>coins = 75<br>if coins >= 50:<br>&nbsp;&nbsp;&nbsp;&nbsp;print(\"You're rich!\")"
+                        ]
+                    },
+                    1: {
+                        type: 'lesson',
+                        title: "Using elif and else",
+                        content: `
+                            <div class="concept">
+                                <div class="concept-title">🔀 Multiple Choices</div>
+                                <p>Check multiple conditions in order:</p>
+                                <div class="code-example"><pre>score = 850
+
+if score &gt;= 1000:
+    print("Master level!")
+elif score &gt;= 500:
+    print("Expert level!")
+elif score &gt;= 200:
+    print("Intermediate!")
+else:
+    print("Beginner")</pre></div>
+                                
+                                <p><strong>How it works:</strong> Python checks from top to bottom. First True wins!</p>
+                            </div>
+                        `,
+                        requirements: [
+                            { type: 'variable', name: 'health' },
+                            { type: 'if' },
+                            { type: 'elif' },
+                            { type: 'else' },
+                            { type: 'print' }
+                        ],
+                        prompt: "Create <code>health = 40</code>. IF health > 70 print \"Healthy\", ELIF health > 30 print \"Okay\", ELSE print \"Low\"",
+                        hints: [
+                            "💡 Use if, elif, and else with colons",
+                            "💡 Indent all print statements",
+                            "💡 Full answer:<br>health = 40<br>if health > 70:<br>&nbsp;&nbsp;&nbsp;&nbsp;print(\"Healthy\")<br>elif health > 30:<br>&nbsp;&nbsp;&nbsp;&nbsp;print(\"Okay\")<br>else:<br>&nbsp;&nbsp;&nbsp;&nbsp;print(\"Low\")"
+                        ]
+                    },
+                    2: {
+                        type: 'lesson',
+                        title: "Combining Conditions with and/or",
+                        content: `
+                            <div class="concept">
+                                <div class="concept-title">🎯 Check Multiple Things</div>
+                                <p><strong>AND</strong> - Both must be True:</p>
+                                <div class="code-example"><pre>has_key = True
+at_door = True
+
+if has_key and at_door:
+    print("Door unlocked!")</pre></div>
+                                
+                                <p><strong>OR</strong> - Either one can be True:</p>
+                                <div class="code-example"><pre>has_wings = False
+has_rope = True
+
+if has_wings or has_rope:
+    print("Can reach cliff!")</pre></div>
+                            </div>
+                        `,
+                        requirements: [
+                            { type: 'variable', name: 'level' },
+                            { type: 'variable', name: 'has_sword' },
+                            { type: 'if' },
+                            { type: 'print' }
+                        ],
+                        prompt: "Create <code>level = 5</code> and <code>has_sword = True</code>. IF level >= 5 AND has_sword, print \"Ready for boss!\"",
+                        hints: [
+                            "💡 Use 'and' to combine conditions",
+                            "💡 Both conditions must be true",
+                            "💡 Full answer:<br>level = 5<br>has_sword = True<br>if level >= 5 and has_sword:<br>&nbsp;&nbsp;&nbsp;&nbsp;print(\"Ready for boss!\")"
+                        ]
+                    },
+                    3: {
+                        type: 'project',
+                        title: "Build Enemy AI",
+                        content: `
+                            <div class="final-challenge">
+                                <div class="final-challenge-title">🤖 Build Enemy AI</div>
+                                <p><strong>Make an enemy decide what to do based on distance!</strong></p>
+                                
+                                <div class="concept">
+                                    <div class="concept-title">📋 Instructions:</div>
+                                    <ol>
+                                        <li>Create <code>distance_to_player = 15</code></li>
+                                        <li>IF distance < 5: print "ATTACK!"</li>
+                                        <li>ELIF distance < 20: print "Chase player"</li>
+                                        <li>ELSE: print "Patrol area"</li>
+                                        <li>Test with different distances: 3, 12, 25</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        `,
+                        requirements: [],
+                        prompt: "Build your enemy AI system!"
+                    },
+                    4: {
+                        type: 'creative',
+                        title: "Build Your Decision Game!",
+                        content: `
+                            <div class="final-challenge">
+                                <div class="final-challenge-title">🚀 Build Your Decision Game!</div>
+                                <p><strong>Create any game where choices matter!</strong></p>
+                                
+                                <div class="concept">
+                                    <div class="concept-title">💡 Game Ideas:</div>
+                                    <ul>
+                                        <li>🎮 Difficulty Selector - Choose easy/medium/hard</li>
+                                        <li>🚪 Door Puzzle - Check if player has right items</li>
+                                        <li>⚔️ Combat AI - Enemy behavior based on health</li>
+                                        <li>🌡️ Weather System - Different effects based on temperature</li>
+                                        <li>🎯 Grade Calculator - Score to letter grade</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        `,
+                        requirements: [],
+                        prompt: "Build your decision game here!"
+                    }
+                }
+            },
+
+            loops: {
+                icon: '🔁',
+                name: 'Loops',
+                totalSteps: 5,
+                steps: {
+                    0: {
+                        type: 'lesson',
+                        title: "Repeating Actions with for",
+                        content: `
+                            <div class="concept">
+                                <div class="concept-title">🔄 Why Games Need Loops</div>
+                                <p>Games are FULL of repetition:</p>
+                                <ul>
+                                    <li>👾 Spawn 10 enemies</li>
+                                    <li>💎 Check every item in inventory</li>
+                                    <li>🎬 Game loop runs 60 times per second</li>
+                                </ul>
+                                <p><strong>Without loops, you'd write the same code 100 times!</strong></p>
+                            </div>
+
+                            <div class="code-example"><pre><span class="code-comment"># BAD: Repeat code manually</span>
+print("Enemy spawned!")
+print("Enemy spawned!")
+print("Enemy spawned!")
+
+<span class="code-comment"># GOOD: Use a loop!</span>
+for i in range(3):
+    print("Enemy spawned!")</pre></div>
+                        `,
+                        requirements: [
+                            { type: 'for' },
+                            { type: 'range' },
+                            { type: 'print' }
+                        ],
+                        prompt: "Use a for loop with <code>range(5)</code> to print \"Gold coin!\" 5 times",
+                        hints: [
+                            "💡 for i in range(5):",
+                            "💡 Don't forget to indent the print",
+                            "💡 Full answer:<br>for i in range(5):<br>&nbsp;&nbsp;&nbsp;&nbsp;print(\"Gold coin!\")"
+                        ]
+                    },
+                    1: {
+                        type: 'lesson',
+                        title: "Looping Through Lists",
+                        content: `
+                            <div class="concept">
+                                <div class="concept-title">📦 Process Collections</div>
+                                <p>Games store collections: inventory, enemies, players...</p>
+                                <div class="code-example"><pre>inventory = ["Sword", "Shield", "Potion"]
+
+for item in inventory:
+    print(f"You have: {item}")
+
+<span class="code-comment"># Shows:
+# You have: Sword
+# You have: Shield  
+# You have: Potion</span></pre></div>
+                            </div>
+                        `,
+                        requirements: [
+                            { type: 'variable', name: 'items' },
+                            { type: 'for' },
+                            { type: 'print' }
+                        ],
+                        prompt: "Create <code>items = [\"Key\", \"Map\", \"Torch\"]</code>. Loop through and print each item.",
+                        hints: [
+                            "💡 for item in items:",
+                            "💡 Print each item inside the loop",
+                            "💡 Full answer:<br>items = [\"Key\", \"Map\", \"Torch\"]<br>for item in items:<br>&nbsp;&nbsp;&nbsp;&nbsp;print(item)"
+                        ]
+                    },
+                    2: {
+                        type: 'lesson',
+                        title: "Counting in Loops",
+                        content: `
+                            <div class="concept">
+                                <div class="concept-title">🔢 Track Things in Loops</div>
+                                <p>Count how many of something you have:</p>
+                                <div class="code-example"><pre>loot = ["Gold", "Gold", "Gem", "Gold"]
+gold_count = 0
+
+for item in loot:
+    if item == "Gold":
+        gold_count = gold_count + 1
+
+print(f"Found {gold_count} gold!")  <span class="code-comment"># 3</span></pre></div>
+                            </div>
+                        `,
+                        requirements: [
+                            { type: 'variable', name: 'enemies' },
+                            { type: 'variable', name: 'goblin_count' },
+                            { type: 'for' },
+                            { type: 'if' }
+                        ],
+                        prompt: "Create <code>enemies = [\"Goblin\", \"Orc\", \"Goblin\"]</code>. Count how many Goblins. Store in <code>goblin_count</code>.",
+                        hints: [
+                            "💡 Start with goblin_count = 0",
+                            "💡 Use if to check each enemy",
+                            "💡 Full answer:<br>enemies = [\"Goblin\", \"Orc\", \"Goblin\"]<br>goblin_count = 0<br>for enemy in enemies:<br>&nbsp;&nbsp;&nbsp;&nbsp;if enemy == \"Goblin\":<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;goblin_count = goblin_count + 1"
+                        ]
+                    },
+                    3: {
+                        type: 'project',
+                        title: "Build a Loot Drop System",
+                        content: `
+                            <div class="final-challenge">
+                                <div class="final-challenge-title">💎 Build a Loot Drop System</div>
+                                <p><strong>Enemies drop items when defeated!</strong></p>
+                                
+                                <div class="concept">
+                                    <div class="concept-title">📋 Instructions:</div>
+                                    <ol>
+                                        <li>Create <code>loot = ["Gold", "Gold", "Potion", "Gold", "Sword"]</code></li>
+                                        <li>Create <code>gold_count = 0</code></li>
+                                        <li>Loop through each item</li>
+                                        <li>Print "Found: [item]" for each</li>
+                                        <li>Count gold coins</li>
+                                        <li>Print total gold at the end</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        `,
+                        requirements: [],
+                        prompt: "Build your loot drop system!"
+                    },
+                    4: {
+                        type: 'creative',
+                        title: "Build Your Loop Game!",
+                        content: `
+                            <div class="final-challenge">
+                                <div class="final-challenge-title">🚀 Build Your Loop Game!</div>
+                                <p><strong>Create any game that repeats actions!</strong></p>
+                                
+                                <div class="concept">
+                                    <div class="concept-title">💡 Game Ideas:</div>
+                                    <ul>
+                                        <li>🎯 Target Practice - Shoot 10 targets, track hits</li>
+                                        <li>👾 Enemy Wave - Spawn multiple enemies with stats</li>
+                                        <li>🎒 Inventory Sorter - Organize items by type</li>
+                                        <li>💰 Coin Collector - Add up coins from list</li>
+                                        <li>🎲 Multi-Dice Roller - Roll multiple dice</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        `,
+                        requirements: [],
+                        prompt: "Build your loop game here!"
+                    }
+                }
+            },
+
+            functions: {
+                icon: '⚙️',
+                name: 'Functions',
+                totalSteps: 5,
+                steps: {
+                    0: {
+                        type: 'lesson',
+                        title: "Creating Your Own Commands",
+                        content: `
+                            <div class="concept">
+                                <div class="concept-title">🎮 Why Functions Are Game-Changers</div>
+                                <p>Imagine damage happens 50+ places in your game. Instead of copying 5 lines everywhere:</p>
+                                <div class="code-example"><pre><span class="code-comment"># Write once:</span>
+def take_damage(amount):
+    print(f"Took {amount} damage!")
+
+<span class="code-comment"># Use everywhere:</span>
+take_damage(10)
+take_damage(25)
+take_damage(5)</pre></div>
+                                
+                                <p><strong>Functions = Custom commands you create!</strong></p>
+                            </div>
+                        `,
+                        requirements: [
+                            { type: 'def' },
+                            { type: 'print' }
+                        ],
+                        prompt: "Create a function called <code>greet</code> that prints \"Hello, player!\" (use <code>def</code>)",
+                        hints: [
+                            "💡 def greet():",
+                            "💡 Indent the print statement",
+                            "💡 Full answer:<br>def greet():<br>&nbsp;&nbsp;&nbsp;&nbsp;print(\"Hello, player!\")"
+                        ]
+                    },
+                    1: {
+                        type: 'lesson',
+                        title: "Functions with Parameters",
+                        content: `
+                            <div class="concept">
+                                <div class="concept-title">📥 Give Functions Information</div>
+                                <p>Parameters let you pass information IN:</p>
+                                <div class="code-example"><pre>def greet_player(name):
+    print(f"Hello, {name}!")
+
+greet_player("Warrior")  <span class="code-comment"># Hello, Warrior!</span>
+greet_player("Mage")     <span class="code-comment"># Hello, Mage!</span></pre></div>
+                            </div>
+                        `,
+                        requirements: [
+                            { type: 'def' },
+                            { type: 'print' },
+                            { type: 'fstring' }
+                        ],
+                        prompt: "Create function <code>spawn_enemy(enemy_type)</code> that prints \"Spawning [enemy_type]!\"",
+                        hints: [
+                            "💡 Use parameter in f-string",
+                            "💡 def spawn_enemy(enemy_type):",
+                            "💡 Full answer:<br>def spawn_enemy(enemy_type):<br>&nbsp;&nbsp;&nbsp;&nbsp;print(f\"Spawning {enemy_type}!\")"
+                        ]
+                    },
+                    2: {
+                        type: 'lesson',
+                        title: "Functions that Return Values",
+                        content: `
+                            <div class="concept">
+                                <div class="concept-title">📤 Get Results Back</div>
+                                <p>Use <code>return</code> to send a value back:</p>
+                                <div class="code-example"><pre>def calculate_damage(attack):
+    damage = attack * 2
+    return damage
+
+crit = calculate_damage(30)
+print(crit)  <span class="code-comment"># 60</span></pre></div>
+                            </div>
+                        `,
+                        requirements: [
+                            { type: 'def' }
+                        ],
+                        prompt: "Create function <code>double(number)</code> that returns number * 2",
+                        hints: [
+                            "💡 Use return to send value back",
+                            "💡 def double(number):",
+                            "💡 Full answer:<br>def double(number):<br>&nbsp;&nbsp;&nbsp;&nbsp;return number * 2"
+                        ]
+                    },
+                    3: {
+                        type: 'project',
+                        title: "Build a Level-Up System",
+                        content: `
+                            <div class="final-challenge">
+                                <div class="final-challenge-title">🌟 Build a Level-Up System</div>
+                                <p><strong>Calculate stat increases when leveling up!</strong></p>
+                                
+                                <div class="concept">
+                                    <div class="concept-title">📋 Instructions:</div>
+                                    <ol>
+                                        <li>Create function <code>calculate_stats(level)</code></li>
+                                        <li>Calculate: <code>health = level * 20</code></li>
+                                        <li>Calculate: <code>attack = level * 5</code></li>
+                                        <li>Return both values: <code>return health, attack</code></li>
+                                        <li>Test with level 5</li>
+                                        <li>Print the results</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        `,
+                        requirements: [],
+                        prompt: "Build your level-up system!"
+                    },
+                    4: {
+                        type: 'creative',
+                        title: "Build Your Function Library!",
+                        content: `
+                            <div class="final-challenge">
+                                <div class="final-challenge-title">🚀 Build Your Function Library!</div>
+                                <p><strong>Create reusable functions for a game!</strong></p>
+                                
+                                <div class="concept">
+                                    <div class="concept-title">💡 Game Ideas:</div>
+                                    <ul>
+                                        <li>⚔️ Combat Functions - attack(), defend(), heal()</li>
+                                        <li>🎲 Dice System - roll_dice(), roll_advantage()</li>
+                                        <li>💰 Economy - buy(), sell(), calculate_discount()</li>
+                                        <li>🌟 XP System - gain_xp(), check_level_up()</li>
+                                        <li>🎯 Calculator - multiply_damage(), calculate_distance()</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        `,
+                        requirements: [],
+                        prompt: "Build your function library here!"
+                    }
+                }
+            }
+        };
+
+        let currentLesson = 'variables';
+        let currentStep = 0;
+        let completedLessons = {};
+        let currentHintLevel = 0;
+
+        // FIXED: Add auto-save and restore
+        function saveProgress() {
+            try {
+                localStorage.setItem('completedLessons', JSON.stringify(completedLessons));
+            } catch (e) {
+                console.warn('Could not save progress to localStorage:', e);
+            }
+        }
+
+        function saveCode() {
+            try {
+                const code = document.getElementById('answer')?.value || '';
+                localStorage.setItem(`code_${currentLesson}_${currentStep}`, code);
+            } catch (e) {
+                console.warn('Could not save code to localStorage:', e);
+            }
+        }
+
+        function restoreCode() {
+            try {
+                const saved = localStorage.getItem(`code_${currentLesson}_${currentStep}`);
+                if (saved && document.getElementById('answer')) {
+                    document.getElementById('answer').value = saved;
+                }
+            } catch (e) {
+                console.warn('Could not restore code from localStorage:', e);
+            }
+        }
+
+        function init() {
+            try {
+                completedLessons = JSON.parse(localStorage.getItem('completedLessons')) || {};
+            } catch (e) {
+                completedLessons = {};
+            }
+            renderLessonNav();
+            loadLesson(currentLesson);
+        }
+
+        function renderLessonNav() {
+            const nav = document.getElementById('lessonNav');
+            nav.innerHTML = '';
+            
+            Object.keys(lessons).forEach(key => {
+                const lesson = lessons[key];
+                const btn = document.createElement('div');
+                btn.className = 'lesson-btn';
+                if (key === currentLesson) btn.classList.add('active');
+                if (completedLessons[key]) btn.classList.add('completed');
+                
+                btn.innerHTML = `
+                    <div class="lesson-icon">${lesson.icon}</div>
+                    <div class="lesson-name">${lesson.name}</div>
+                `;
+                btn.onclick = () => switchLesson(key);
+                nav.appendChild(btn);
+            });
+        }
+
+        function switchLesson(lessonKey) {
+            // FIXED: Cancel any pending execution
+            currentExecutionId = null;
+            isExecuting = false;
+            
+            currentLesson = lessonKey;
+            currentStep = 0;
+            currentHintLevel = 0;
+            renderLessonNav();
+            loadLesson(lessonKey);
+        }
+
+        function loadLesson(lessonKey) {
+            const lesson = lessons[lessonKey];
+            const container = document.getElementById('lessonContainer');
+            const step = lesson.steps[currentStep];
+            
+            currentHintLevel = 0; // Reset hints
+            
+            const isProject = step.type === 'project';
+            const isCreative = step.type === 'creative';
+            
+            let html = `
+                <div class="progress">Step ${currentStep + 1} of ${lesson.totalSteps}</div>
+                
+                <div class="section">
+                    <div class="section-title">Step ${currentStep + 1}: ${step.title}</div>
+                    ${step.content}
+                    
+                    ${!isCreative ? `
+                    <div class="mini-quiz">
+                        <div class="mini-quiz-title">✏️ Try It</div>
+                        <div class="quiz-prompt">${step.prompt}</div>
+                        <textarea id="answer" class="${isProject ? 'project' : ''}" placeholder="Type your code here..."></textarea>
+                        
+                        <button class="btn run-btn" onclick="runCode()">▶️ Run Code</button>
+                        ${!isProject ? '<button class="btn check-btn" onclick="checkStep()">✓ Check Answer</button>' : ''}
+                        ${step.hints ? '<button class="btn hint-btn" onclick="showHint()">💡 Hint</button>' : ''}
+                        <button class="btn clear-btn" onclick="clearCode()">🗑️ Clear</button>
+                        
+                        <div class="hint-box" id="hintBox"></div>
+                        
+                        <div class="output-container" id="output" style="display:none;">
+                            <div class="output-title">Output:</div>
+                            <div class="output-content" id="outputContent"></div>
+                            <div id="variableDisplay"></div>
+                        </div>
+                        
+                        <div class="feedback" id="feedback"></div>
+                    </div>
+                    ` : `
+                    <div class="mini-quiz">
+                        <div class="mini-quiz-title">🎨 Your Turn to Create!</div>
+                        <div class="quiz-prompt">${step.prompt}</div>
+                        <textarea id="answer" class="project" placeholder="Build your own game here! Be creative!"></textarea>
+                        
+                        <button class="btn run-btn" onclick="runCode()">▶️ Run Code</button>
+                        <button class="btn clear-btn" onclick="clearCode()">🗑️ Clear</button>
+                        
+                        <div class="output-container" id="output" style="display:none;">
+                            <div class="output-title">Output:</div>
+                            <div class="output-content" id="outputContent"></div>
+                            <div id="variableDisplay"></div>
+                        </div>
+                        
+                        <div class="feedback show correct" style="display: block; margin-top: 20px;">
+                            🎉 <strong>This is your creative project - there's no wrong answer!</strong> Just build something cool and learn by experimenting!
+                        </div>
+                    </div>
+                    `}
+
+                    <div class="nav-buttons">
+                        <button class="nav-btn" onclick="previousStep()" ${currentStep === 0 ? 'disabled' : ''}>
+                            ← Previous
+                        </button>
+                        ${currentStep === lesson.totalSteps - 1 ? 
+                            `<button class="nav-btn" style="background: linear-gradient(135deg, #34d399 0%, #10b981 100%); color: #000; font-weight: 700;" onclick="completeLesson()">
+                                ✓ Complete Lesson
+                            </button>` :
+                            `<button class="nav-btn" onclick="nextStep()">
+                                Next →
+                            </button>`
+                        }
+                    </div>
+                </div>
+            `;
+            
+            container.innerHTML = html;
+            
+            // FIXED: Restore saved code and add auto-save
+            setTimeout(() => {
+                restoreCode();
+                const textarea = document.getElementById('answer');
+                if (textarea) {
+                    textarea.addEventListener('input', () => {
+                        saveCode();
+                    });
+                }
+            }, 50);
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // NEW: Hint system
+        function showHint() {
+            const lesson = lessons[currentLesson];
+            const step = lesson.steps[currentStep];
+            const hintBox = document.getElementById('hintBox');
+            
+            if (!step.hints || currentHintLevel >= step.hints.length) {
+                hintBox.className = 'hint-box show';
+                hintBox.innerHTML = '💡 No more hints available!';
+                return;
+            }
+            
+            hintBox.className = 'hint-box show';
+            hintBox.innerHTML = step.hints[currentHintLevel];
+            currentHintLevel++;
+        }
+
+        // NEW: Clear code
+        function clearCode() {
+            if (confirm('Are you sure you want to clear your code?')) {
+                document.getElementById('answer').value = '';
+                saveCode();
+                
+                const fb = document.getElementById('feedback');
+                if (fb) fb.classList.remove('show');
+                
+                const hintBox = document.getElementById('hintBox');
+                if (hintBox) hintBox.classList.remove('show');
+                
+                const output = document.getElementById('output');
+                if (output) output.style.display = 'none';
+            }
+        }
+
+        // FIXED: Better run code with button state
+        async function runCode() {
+            if (isExecuting) return;
+            
+            const code = document.getElementById('answer').value;
+            const outputDiv = document.getElementById('output');
+            const outputContent = document.getElementById('outputContent');
+            const variableDisplay = document.getElementById('variableDisplay');
+            const runBtn = event.target;
+            
+            if (!code.trim()) {
+                alert('Please write some code first!');
+                return;
+            }
+
+            // FIXED: Disable button during execution
+            isExecuting = true;
+            runBtn.disabled = true;
+            runBtn.textContent = '⏳ Running...';
+
+            outputDiv.style.display = 'block';
+            outputContent.innerHTML = '⏳ Running...';
+            outputContent.className = 'output-content';
+            variableDisplay.innerHTML = '';
+            
+            const result = await runPythonCode(code);
+            
+            // Re-enable button
+            isExecuting = false;
+            runBtn.disabled = false;
+            runBtn.textContent = '▶️ Run Code';
+            
+            if (result.success) {
+                if (result.output) {
+                    outputContent.innerHTML = result.output;
+                } else {
+                    outputContent.innerHTML = '<span style="color: #64748b;">(no print output)</span>';
+                }
+                
+                if (result.variables && Object.keys(result.variables).length > 0) {
+                    let varHTML = '<div class="variable-display">';
+                    varHTML += '<div style="color: #64748b; font-size: 0.85em; margin-bottom: 8px;">Variables created:</div>';
+                    
+                    Object.keys(result.variables).forEach(varName => {
+                        const value = result.variables[varName];
+                        const displayValue = typeof value === 'string' ? `"${value}"` : value;
+                        varHTML += `
+                            <div class="variable-item">
+                                <span class="variable-name">${varName}</span>
+                                <span class="variable-value">= ${displayValue}</span>
+                            </div>
+                        `;
+                    });
+                    
+                    varHTML += '</div>';
+                    variableDisplay.innerHTML = varHTML;
+                }
+                
+                if (result.fallback) {
+                    outputContent.innerHTML = '<span style="color: #64748b;">(Python interpreter not available - showing variables only)</span>';
+                }
+            } else {
+                outputContent.innerHTML = result.error;
+                outputContent.className = 'output-content output-error';
+            }
+        }
+
+        function checkStep() {
+            const code = document.getElementById('answer').value;
+            const lesson = lessons[currentLesson];
+            const step = lesson.steps[currentStep];
+            const fb = document.getElementById('feedback');
+            
+            if (!code.trim()) {
+                fb.className = 'feedback show incorrect';
+                fb.innerHTML = '❌ Please write some code first!';
+                return;
+            }
+
+            const validation = validateCode(code, step.requirements);
+            
+            fb.classList.remove('correct', 'incorrect');
+            fb.classList.add('show');
+            
+            if (validation.passed) {
+                fb.className = 'feedback show correct';
+                fb.innerHTML = '✅ Perfect! Click "Next →" to continue or try running your code with the ▶️ button to see what happens!';
+            } else {
+                fb.className = 'feedback show incorrect';
+                fb.innerHTML = validation.errors.join('<br>');
+            }
+        }
+
+        function previousStep() {
+            if (currentStep > 0) {
+                currentStep--;
+                loadLesson(currentLesson);
+            }
+        }
+
+        function nextStep() {
+            const lesson = lessons[currentLesson];
+            if (currentStep < lesson.totalSteps - 1) {
+                currentStep++;
+                loadLesson(currentLesson);
+            }
+        }
+
+        // FIXED: Add celebration animation
+        function completeLesson() {
+            completedLessons[currentLesson] = true;
+            saveProgress();
+            
+            // Show celebration
+            const celebration = document.createElement('div');
+            celebration.className = 'completion-animation';
+            celebration.innerHTML = `
+                <div class="completion-emoji">🎉</div>
+                <div class="completion-text">Lesson Complete!</div>
+                <div style="color: #94a3b8; margin-top: 10px;">Great job!</div>
+            `;
+            document.body.appendChild(celebration);
+            
+            setTimeout(() => {
+                celebration.remove();
+                
+                const lessonKeys = Object.keys(lessons);
+                const currentIndex = lessonKeys.indexOf(currentLesson);
+                
+                if (currentIndex < lessonKeys.length - 1) {
+                    switchLesson(lessonKeys[currentIndex + 1]);
+                } else {
+                    alert('🎉 Congratulations! You\'ve completed all Python Foundation lessons!');
+                    renderLessonNav();
+                }
+            }, 2000);
+        }
+
+        init();
+    </script>
+</body>
+</html>
